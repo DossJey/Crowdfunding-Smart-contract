@@ -1,0 +1,69 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(38, 28, 44);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-proj {
+  background-color: rgb(92, 82, 127);
+  border-radius: 8px;
+  border-style: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  width: 50%;
+  margin-top: 10px;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-proj:hover {
+  background-color: #F082AC;
+}
+
+.project-card {
+  background-color: rgb(62, 44, 65);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 50%;
+  text-align: center;
+}
