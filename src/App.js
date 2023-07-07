@@ -4,10 +4,11 @@ import { ethers, formatEther, formatUnits} from 'ethers';
 import CrowdFund from './artifacts/contracts/Crowdfund.sol/Crowdfund.json';
 import './App.css';
 
+
  
 
 
-const crowd_address = "0xe0Bb730A8374C04413bB812e3bdA3f051C812E2b";
+const crowd_address = "0x29f7F6b8F6fD83A0464101c4dda57Bd92140FB22";
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
 
   //test getAllProjects 
   const [allproj, setAllProj] = useState(0);
+
+  //test widthdrawDonations
+  const [completed_proj, setCompleted] = useState(0);
 
   
 
@@ -146,6 +150,19 @@ function App() {
   }
 
 
+  const withdrawDonations = async ()=>{
+
+    const provider = await new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const account = (await signer).getAddress();
+    const contract = await new ethers.Contract(crowd_address,CrowdFund.abi,signer);
+
+    await contract.withdrawDonations(completed_proj);
+    console.log("Congratulations!");
+
+  }
+
+
   return (
    
     <div className = "App">
@@ -195,6 +212,17 @@ function App() {
         <button className='btn-proj' onClick={getRefund}>Get a refund</button>
       </div>
 
+      <div className='inputField'>
+        <input 
+            type='number'
+            value = {completed_proj}
+            onChange = {(e)=>setCompleted(e.target.value)} 
+            placeholder='index of project completed' 
+        />
+
+        <button className='btn-proj' onClick={withdrawDonations}>Withdraw</button>
+      </div>
+
 
       <div className='inputField'>
         <input 
@@ -235,10 +263,11 @@ function App() {
               <p>INDEX: {index}</p>
               <p>Nome: {element.title}</p>
               <p>Descrizione: {element.description}</p>
-              <p>Obiettivo da raggiungere: {element && element.to_reach && formatEther(element.to_reach)}</p>
-              <p>Totale raggiunto: {element && element.raised && element.raised.toString()}</p>
+              <p>Obiettivo da raggiungere: {element && element.to_reach && formatEther(element.to_reach) } ETH</p>
+              <p>Totale raggiunto: {element && element.raised && formatEther(element.raised)} ETH</p>
               <p>Totale donazioni: {element && element.totalDonations && element.totalDonations.toString()}</p>
               <p>Proposta da: {element && element.owner && element.owner.toString()}</p>
+              <p>Completed: {element && element.complete ? "true" : "false"}</p>
             </div>
         ))): (
         <p></p>

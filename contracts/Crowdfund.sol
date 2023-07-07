@@ -53,7 +53,7 @@ contract Crowdfund{
 
     function proposeProject(string memory _title, string memory _description, uint _to_reach, uint _deadline) external {
 
-        Project memory new_project = Project(msg.sender,_title,_description,_to_reach * 1 ether,0,(block.timestamp + (_deadline *7 days)),0,false);
+        Project memory new_project = Project(msg.sender,_title,_description,_to_reach,0,(block.timestamp + (_deadline *7 days)),0,false);
 
         projects.push(new_project);
 
@@ -68,7 +68,7 @@ contract Crowdfund{
         projects[_index].raised += msg.value;
         contributors[msg.sender][_index] += msg.value;
 
-        //check if the project has reach the objective
+        //check if the project has reached the objective
         if(projects[_index].raised >= projects[_index].to_reach){
             projects[_index].complete = true;
             emit ProjectCompleted(_index);
